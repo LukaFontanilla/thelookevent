@@ -323,10 +323,14 @@
     sorts: [order_items.months_since_signup, users.age_tier__sort_, users.traffic_source]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: pct_cohort_still_active, label: Pct Cohort
-          Still Active, expression: "${users.count} / max(${users.count})", value_format: !!null '',
-        value_format_name: percent_0, _kind_hint: measure, _type_hint: number}]
-    query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: pct_cohort_still_active
+      label: Pct Cohort Still Active
+      expression: "${users.count} / max(${users.count})"
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
@@ -342,7 +346,7 @@
     plot_size_by_field: false
     trellis: ''
     stacking: ''
-    limit_displayed_rows: true
+    limit_displayed_rows: false
     legend_position: center
     point_style: none
     show_value_labels: false
@@ -356,10 +360,20 @@
       palette_id: google-categorical-0
       options:
         steps: 5
-    y_axes: []
+    y_axes: [{label: Percent of Cohort still Active, orientation: left, series: [
+          {axisId: pct_cohort_still_active, id: Display - pct_cohort_still_active,
+            name: Display}, {axisId: pct_cohort_still_active, id: Email - pct_cohort_still_active,
+            name: Email}, {axisId: pct_cohort_still_active, id: Facebook - pct_cohort_still_active,
+            name: Facebook}, {axisId: pct_cohort_still_active, id: Organic - pct_cohort_still_active,
+            name: Organic}, {axisId: pct_cohort_still_active, id: Search - pct_cohort_still_active,
+            name: Search}], showLabels: true, showValues: true, maxValue: !!null '',
+        valueFormat: 0%, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
     y_axis_max: ['50']
     y_axis_labels: [Percent of Cohort still Active]
     y_axis_value_format: "#\\%"
+    x_axis_zoom: true
+    y_axis_zoom: true
     limit_displayed_rows_values:
       show_hide: hide
       first_last: first
@@ -367,6 +381,8 @@
     colors: ["#64518A", "#8D7FB9", "#EA8A2F", "#F2B431", "#2DA5DE", "#57BEBE", "#7F7977",
       "#B2A898", "#494C52"]
     series_colors: {}
+    swap_axes: false
+    discontinuous_nulls: false
     hidden_fields: [cumulative_lifetime_spend, order_items.total_sale_price, users.count]
     defaults_version: 1
     note_state: collapsed
@@ -823,7 +839,6 @@
     limit: 10
     column_limit: 50
     row_total: right
-    query_timezone: user_timezone
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -831,9 +846,9 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: gray
+    table_theme: white
     limit_displayed_rows: false
-    enable_conditional_formatting: false
+    enable_conditional_formatting: true
     header_text_alignment: left
     header_font_size: '12'
     rows_font_size: '12'
@@ -842,6 +857,8 @@
     show_sql_query_menu_options: false
     show_totals: true
     show_row_totals: true
+    truncate_header: false
+    minimum_column_width: 75
     series_labels:
       sessions.cart_to_checkout_conversion: Cart Conversion
     series_cell_visualizations:
@@ -850,10 +867,12 @@
         palette:
           palette_id: google-sequential-0
           collection_id: google
+    header_font_color: "#FFF"
+    header_background_color: "#1A73E8"
     conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#2196F3",
         font_color: !!null '', color_application: {collection_id: f14810d2-98d7-42df-82d0-bc185a074e42,
           palette_id: 493e0f89-1e28-4f9b-9f49-9cb1e77a0331}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
+        strikethrough: false, fields: [sessions.cart_to_checkout_conversion]}]
     conditional_formatting_ignored_fields: []
     stacking: ''
     show_value_labels: false
@@ -876,14 +895,14 @@
       "#1ea8df", "#a2dcf3", "#776fdf", "#776fdf", "#635189"]
     hidden_fields: []
     y_axes: []
-    series_types: {}
     defaults_version: 1
     listen:
+      Brand: product_viewed.brand
       State: users.state
       City: users.city
       Traffic Source: users.traffic_source
-      User Gender: users.gender
-      Date: events.event_date
+      Gender: users.gender
+      Event Date: events.event_date
       Country: users.country
     row: 26
     col: 10
