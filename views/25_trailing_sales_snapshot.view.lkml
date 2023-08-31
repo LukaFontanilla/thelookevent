@@ -1,6 +1,6 @@
 view: trailing_sales_snapshot {
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     sql: with calendar as
       (select distinct created_at as snapshot_date
       from looker-private-demo.ecomm.inventory_items

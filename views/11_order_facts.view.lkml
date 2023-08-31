@@ -14,7 +14,7 @@ view: order_facts {
         sql: RANK() OVER (PARTITION BY user_id ORDER BY created_at) ;;
       }
     }
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
   }
 
   dimension: order_id {

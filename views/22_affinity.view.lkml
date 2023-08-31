@@ -1,7 +1,7 @@
 view: affinity {
   label: "Affinity"
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     sql: SELECT
           product_a_id
           , product_b_id
@@ -135,7 +135,7 @@ view: affinity {
 #Table that aggregates the products purchased by user and order id
 view: user_order_product {
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     sql: SELECT
         oi.user_id AS user_id
         , p.id AS prod_id
@@ -177,7 +177,7 @@ view: user_order_product {
 #Table to count the total times a product id has been purchased
 view: total_order_product {
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     sql: SELECT
         p.id AS prod_id
         , COUNT(*) AS prod_freq

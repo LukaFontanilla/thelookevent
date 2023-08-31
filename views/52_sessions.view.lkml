@@ -1,6 +1,6 @@
 view: sessions {
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     sql: SELECT
         session_id
         , CAST(MIN(created_at) AS TIMESTAMP) AS session_start

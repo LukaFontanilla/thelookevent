@@ -2,7 +2,7 @@
 # include: "thelookai.model.lkml"
 view: customer_profile {
   derived_table: {
-    datagroup_trigger: ecommerce_etl
+    datagroup_trigger: ecommerce_etl_modified
     explore_source: order_items {
       column: id { field: users.id }
       column: email { field: users.email }
