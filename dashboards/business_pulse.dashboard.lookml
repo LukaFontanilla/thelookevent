@@ -759,19 +759,60 @@
     model: thelook
     explore: order_items
     type: single_value
-    fields: [order_items.reporting_period, order_items.count]
+    fields: [order_items.count, order_items.created_year]
+    fill_fields: [order_items.created_year]
     filters:
-      order_items.reporting_period: "-NULL"
-    sorts: [order_items.count desc]
+      users.state: ''
+      users.city: ''
+      users.traffic_source: ''
+      users.gender: ''
+      distribution_centers.location: ''
+      users.country: ''
+      order_items.created_year: 2 years
+    sorts: [order_items.created_year desc]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{table_calculation: percent_change, label: Percent Change, expression: "${order_items.count}/offset(${order_items.count},1)\
-          \ - 1", value_format: !!null '', value_format_name: percent_0}]
-    query_timezone: America/Los_Angeles
+    dynamic_fields:
+    - table_calculation: percent_change
+      label: Percent Change
+      expression: "${order_items.count}/offset(${order_items.count},1) - 1"
+      value_format:
+      value_format_name: percent_0
+      is_disabled: true
+    - args:
+      - order_items.count
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: order_items.count
+      label: Percent change from previous - Order Items Count
+      source_field: order_items.count
+      table_calculation: percent_change_from_previous_order_items_count
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+      is_disabled: true
+    - args:
+      - order_items.count
+      calculation_type: percent_difference_from_previous
+      category: table_calculation
+      based_on: order_items.count
+      label: Percent change from previous - Order Items Count
+      source_field: order_items.count
+      table_calculation: percent_change_from_previous_order_items_count_2
+      value_format:
+      value_format_name: percent_0
+      _kind_hint: measure
+      _type_hint: number
+    custom_color_enabled: false
+    show_single_value_title: true
     show_comparison: true
     comparison_type: change
     comparison_reverse_colors: false
     show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
     colors: ["#5245ed", "#a2dcf3", "#776fdf", "#1ea8df", "#49cec1", "#776fdf", "#49cec1",
       "#1ea8df", "#a2dcf3", "#776fdf", "#776fdf", "#635189"]
     stacking: ''
@@ -796,16 +837,16 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    show_single_value_title: true
     single_value_title: Orders This Year
-    hidden_fields: [order_items.reporting_period]
+    hidden_fields: [order_items.reporting_period, order_items.created_year]
     comparison_label: vs Same Period Last Year
-    custom_color_enabled: false
     custom_color: forestgreen
     y_axes: []
     note_state: collapsed
     note_display: below
     note_text: ''
+    hidden_pivots: {}
+    defaults_version: 1
     listen:
       State: users.state
       City: users.city
