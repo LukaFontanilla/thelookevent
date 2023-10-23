@@ -265,7 +265,7 @@ view: order_items {
     label: "Gross Margin"
     type: number
     value_format_name: usd
-    sql: ${sale_price}*0.9 - ${inventory_items.cost};;
+    sql: ${sale_price} - ${inventory_items.cost};;
   }
 
   dimension: item_gross_margin_percentage {
