@@ -223,10 +223,10 @@ view: order_items {
     label: "Days to Process"
     type: number
     sql: CASE
-        WHEN ${status} = 'Processing' THEN TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ${created_raw}, DAY)*1.0
-        WHEN ${status} IN ('Shipped', 'Complete', 'Returned') THEN TIMESTAMP_DIFF(${shipped_raw}, ${created_raw}, DAY)*1.0
-        WHEN ${status} = 'Cancelled' THEN NULL
-      END
+          WHEN ${status} = 'Processing' THEN TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ${created_raw}, DAY)*1.0
+          WHEN ${status} IN ('Shipped', 'Complete', 'Returned') THEN TIMESTAMP_DIFF(${shipped_raw}, ${created_raw}, DAY)*1.0
+          WHEN ${status} = 'Cancelled' THEN NULL
+         END
        ;;
   }
 
