@@ -110,7 +110,7 @@ view: user_order_facts {
   dimension: lifetime_revenue_tier {
     label: "Lifetime Reveneue Tier"
     type: tier
-    tiers: [0, 25, 50, 100, 200, 500, 1000]
+    tiers: [0, 10, 20, 50, 100, 200, 500, 1000]
     sql: ${lifetime_revenue} ;;
     style: integer
   }
