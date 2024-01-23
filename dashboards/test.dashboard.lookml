@@ -1,5 +1,5 @@
-- dashboard: business_pulse
-  title: Business Pulse
+- dashboard: test
+  title: test
   layout: newspaper
   preferred_viewer: dashboards
   description: ''
