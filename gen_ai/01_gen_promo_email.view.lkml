@@ -91,7 +91,7 @@ view: promo_email {
           (
             SELECT
 
-      format(CONCAT('Generate Promo Email (150 words) including details about the following customer profile : \nName : %s\nDays as customer: %d\nLifetime order : %d\nLifetime revenue : %f\nExpiry Date : %s\nCity : %s\nCountry : %s'),name, days_as_customer, lifetime_orders, lifetime_revenue, cast(DATE_ADD(CURRENT_DATE, interval 3 month) as string),city, country)  AS prompt,
+      format(CONCAT('Generate Promo Email (180 words) including details about the following customer profile : \nName : %s\nDays as customer: %d\nLifetime order : %d\nProduct categories on which to apply a discount : %s\nExpiry Date : %s\nCity : %s\nCountry : %s'),name, days_as_customer, lifetime_orders, p_categories, cast(DATE_ADD(CURRENT_DATE, interval 3 month) as string),city, country)  AS prompt,
       id
       FROM  ${customer_profile.SQL_TABLE_NAME}
       WHERE {% condition users.email %} email {% endcondition %}
