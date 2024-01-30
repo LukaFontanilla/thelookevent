@@ -32,7 +32,10 @@ view: users {
   dimension: age {
     label: "Age"
     type: number
-    sql: ${TABLE}.age ;;
+    sql: CASE
+          WHEN ${TABLE}.age <= 16 THEN ${TABLE}.age + 3
+          ELSE ${TABLE}.age
+          END;;
   }
 
   dimension: over_21 {
