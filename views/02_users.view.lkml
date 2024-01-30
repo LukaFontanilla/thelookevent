@@ -33,7 +33,7 @@ view: users {
     label: "Age"
     type: number
     sql: CASE
-          WHEN ${TABLE}.age <= 16 THEN ${TABLE}.age + 3
+          WHEN ${TABLE}.age < 19 THEN CAST(FLOOR(5*RAND() + 19) AS INT64)
           ELSE ${TABLE}.age
           END;;
   }
