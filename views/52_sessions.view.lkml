@@ -1,7 +1,7 @@
 view: sessions {
   derived_table: {
     datagroup_trigger: ecommerce_etl_modified
-    materialized_view: yes
+    materialized_view: no
     sql:
       -- session rollup table
       SELECT
