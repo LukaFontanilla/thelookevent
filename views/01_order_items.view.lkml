@@ -13,7 +13,7 @@ view: order_items {
   }
 
   dimension: id2 {
-    label: "ID"
+    label: "ID2"
     description: "Unique identifier for each order item (5 digits)"
     primary_key: yes
     type: number
