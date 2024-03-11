@@ -12,6 +12,15 @@ view: order_items {
     value_format: "00000"
   }
 
+  dimension: id2 {
+    label: "ID"
+    description: "Unique identifier for each order item (5 digits)"
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+    value_format: "00000"
+  }
+
   dimension: inventory_item_id {
     label: "Inventory Item ID"
     description: "Identifier for the associated inventory item (hidden)"
