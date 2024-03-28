@@ -1,6 +1,7 @@
 view: order_items {
   sql_table_name: looker-private-demo.ecomm.order_items ;;
   view_label: "Order Items"
+  drill_fields: [average_spend_per_user]
   ########## IDs, Foreign Keys, Counts ###########
 
   dimension: id {
@@ -10,7 +11,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.id ;;
     value_format: "00000"
-  }
+}
 
   dimension: inventory_item_id {
     label: "Inventory Item ID"
@@ -247,14 +248,12 @@ view: order_items {
        ;;
   }
 
-
   dimension: shipping_time {
     label: "Shipping Time"
     description: "Number of days between the delivery date and shipping date"
     type: number
     sql: TIMESTAMP_DIFF(${delivered_raw}, ${shipped_raw}, DAY)*1.0 ;;
   }
-
 
   measure: average_days_to_process {
     label: "Average Days to Process"
@@ -272,13 +271,11 @@ view: order_items {
     sql: ${shipping_time} ;;
   }
 
+
 ########## Financial Information ##########
 
   dimension: sale_price {
-    label: "Sale Price"
-    description: "Price the item was sold for"
     type: number
-    value_format_name: usd
     sql: ${TABLE}.sale_price;;
   }
 
@@ -311,7 +308,7 @@ view: order_items {
     label: "Total Sale Price"
     description: "Total revenue from order items"
     type: sum
-    value_format_name: usd
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0,\"k\";$0"
     sql: ${sale_price} ;;
     drill_fields: [detail*]
   }

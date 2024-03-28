@@ -16,6 +16,12 @@ view: products {
     drill_fields: [department, brand, item_name]
   }
 
+  dimension: category_vert {
+    label: "Category"
+    sql: ${category};;
+    html: <span style="color:#7CB342;">{{ rendered_value }}</span> ;;
+  }
+
   dimension: item_name {
     label: "Item Name"
     sql: TRIM(${TABLE}.name) ;;
