@@ -5,6 +5,7 @@ view: order_items {
 
   dimension: id {
     label: "ID"
+    description: "Unique identifier for each order item (5 digits)"
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
@@ -13,6 +14,7 @@ view: order_items {
 
   dimension: inventory_item_id {
     label: "Inventory Item ID"
+    description: "Identifier for the associated inventory item (hidden)"
     type: number
     hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
@@ -20,6 +22,7 @@ view: order_items {
 
   dimension: user_id {
     label: "User Id"
+    description: "Identifier for the associated user (hidden)"
     type: number
     hidden: yes
     sql: ${TABLE}.user_id ;;
@@ -27,12 +30,14 @@ view: order_items {
 
   measure: count {
     label: "Count"
+    description: "Number of order items"
     type: count
     drill_fields: [detail*]
   }
 
   measure: count_last_28d {
     label: "Count Sold in Trailing 28 Days"
+    description: "Number of items sold in the last 28 days"
     type: count_distinct
     sql: ${id} ;;
     hidden: yes
@@ -43,6 +48,7 @@ view: order_items {
 
   measure: order_count {
     view_label: "Orders"
+    description: "Number of orders"
     type: count_distinct
     drill_fields: [detail*]
     sql: ${order_id};;
@@ -50,6 +56,7 @@ view: order_items {
 
   measure: first_purchase_count {
     view_label: "Orders"
+    description: "Number of orders placed by first-time customers"
     type: count_distinct
     sql: ${order_id} ;;
     filters: {
@@ -61,6 +68,7 @@ view: order_items {
 
   dimension: order_id_no_actions {
     label: "Order ID No Actions"
+    description: "Order number (without actions)"
     type: number
     hidden: yes
     sql: ${TABLE}.order_id ;;
@@ -68,6 +76,7 @@ view: order_items {
 
   dimension: order_id {
     label: "Order ID"
+    description: "Order number associated with the item"
     type: number
     sql: ${TABLE}.order_id ;;
     action: {
@@ -157,6 +166,7 @@ view: order_items {
   ########## Time Dimensions ##########
 
   dimension_group: returned {
+    description: "Date and time the item was returned"
     type: time
     timeframes: [time, date, week, month, raw]
     sql: ${TABLE}.returned_at ;;
@@ -164,6 +174,7 @@ view: order_items {
   }
 
   dimension_group: shipped {
+    description: "Date and time the item was shipped"
     type: time
     timeframes: [date, week, month, raw]
     sql: CAST(${TABLE}.shipped_at AS TIMESTAMP) ;;
@@ -171,6 +182,7 @@ view: order_items {
   }
 
   dimension_group: delivered {
+    description: "Date and time the item was delivered"
     type: time
     timeframes: [date, week, month, raw]
     sql: CAST(${TABLE}.delivered_at AS TIMESTAMP) ;;
@@ -178,13 +190,14 @@ view: order_items {
   }
 
   dimension_group: created {
+    description: "Date and time the item was added to the order"
     type: time
     timeframes: [time, hour, date, week, month, year, hour_of_day, day_of_week, month_num, raw, week_of_year,month_name]
     sql: ${TABLE}.created_at ;;
-    #order_by_field: created_month_num
   }
 
   dimension: reporting_period_ytd_vs_lytd {
+    description: "PoP Reporting Field for comparisons"
     group_label: "Order Date"
     sql: CASE
         WHEN EXTRACT(YEAR from ${created_raw}) = EXTRACT(YEAR from CURRENT_TIMESTAMP())
@@ -200,12 +213,14 @@ view: order_items {
   }
 
   dimension: days_since_sold {
+    description: "Days since the order item was sold"
     label: "Days Since Sold"
     hidden: yes
     sql: TIMESTAMP_DIFF(${created_raw},CURRENT_TIMESTAMP(), DAY) ;;
   }
 
   dimension: months_since_signup {
+    description: "Months since the order item was sold"
     label: "Months Since Signup"
     view_label: "Orders"
     type: number
@@ -216,11 +231,13 @@ view: order_items {
 
   dimension: status {
     label: "Status"
+    description: "Current status of the order item (Processing, Shipped, etc.)"
     sql: ${TABLE}.status ;;
   }
 
   dimension: days_to_process {
     label: "Days to Process"
+    description: "Days to Process the order"
     type: number
     sql: CASE
         WHEN ${status} = 'Processing' THEN TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ${created_raw}, DAY)*1.0
@@ -233,6 +250,7 @@ view: order_items {
 
   dimension: shipping_time {
     label: "Shipping Time"
+    description: "Number of days between the delivery date and shipping date"
     type: number
     sql: TIMESTAMP_DIFF(${delivered_raw}, ${shipped_raw}, DAY)*1.0 ;;
   }
@@ -240,6 +258,7 @@ view: order_items {
 
   measure: average_days_to_process {
     label: "Average Days to Process"
+    description: "Average time it takes to process an order"
     type: average
     value_format_name: decimal_2
     sql: ${days_to_process} ;;
@@ -247,6 +266,7 @@ view: order_items {
 
   measure: average_shipping_time {
     label: "Average Shipping Time"
+    description: "Average delivery time after shipping"
     type: average
     value_format_name: decimal_2
     sql: ${shipping_time} ;;
@@ -256,6 +276,7 @@ view: order_items {
 
   dimension: sale_price {
     label: "Sale Price"
+    description: "Price the item was sold for"
     type: number
     value_format_name: usd
     sql: ${TABLE}.sale_price;;
@@ -263,6 +284,7 @@ view: order_items {
 
   dimension: gross_margin {
     label: "Gross Margin"
+    description: "Profit after subtracting the cost of the item"
     type: number
     value_format_name: usd
     sql: ${sale_price} - ${inventory_items.cost};;
@@ -270,6 +292,7 @@ view: order_items {
 
   dimension: item_gross_margin_percentage {
     label: "Item Gross Margin Percentage"
+    description: "Gross margin as a percentage of the sale price"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
@@ -277,6 +300,7 @@ view: order_items {
 
   dimension: item_gross_margin_percentage_tier {
     label: "Item Gross Margin Percentage Tier"
+    description: "Gross margin as a percentage of the sale price tiered out"
     type: tier
     sql: 100*${item_gross_margin_percentage} ;;
     tiers: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
@@ -285,6 +309,7 @@ view: order_items {
 
   measure: total_sale_price {
     label: "Total Sale Price"
+    description: "Total revenue from order items"
     type: sum
     value_format_name: usd
     sql: ${sale_price} ;;
@@ -293,6 +318,7 @@ view: order_items {
 
   measure: total_gross_margin {
     label: "Total Gross Margin"
+    description: "Total profit from order items"
     type: sum
     value_format_name: usd
     sql: ${gross_margin} ;;
@@ -302,6 +328,7 @@ view: order_items {
 
   measure: average_sale_price {
     label: "Average Sale Price"
+    description: "Average price of an order item"
     type: average
     value_format_name: usd
     sql: ${sale_price} ;;
@@ -310,6 +337,7 @@ view: order_items {
 
   measure: median_sale_price {
     label: "Median Sale Price"
+    description: "Median price of an order item"
     type: median
     value_format_name: usd
     sql: ${sale_price} ;;
@@ -318,6 +346,7 @@ view: order_items {
 
   measure: average_gross_margin {
     label: "Average Gross Margin"
+    description: "Average profit per order item"
     type: average
     value_format_name: usd
     sql: ${gross_margin} ;;
@@ -326,6 +355,7 @@ view: order_items {
 
   measure: total_gross_margin_percentage {
     label: "Total Gross Margin Percentage"
+    description: "Percentage profit per order item"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${total_gross_margin}/ nullif(${total_sale_price},0) ;;
@@ -333,6 +363,7 @@ view: order_items {
 
   measure: average_spend_per_user {
     label: "Average Spend per User"
+    description: "Average spend per user that has purchased"
     type: number
     value_format_name: usd
     sql: 1.0 * ${total_sale_price} / nullif(${users.count},0) ;;
@@ -343,12 +374,14 @@ view: order_items {
 
   dimension: is_returned {
     label: "Is Returned"
+    description: "Whether the item was returned"
     type: yesno
     sql: ${returned_raw} IS NOT NULL ;;
   }
 
   measure: returned_count {
     label: "Returned Count"
+    description: "Number of items returned"
     type: count_distinct
     sql: ${id} ;;
     filters: {
@@ -360,6 +393,7 @@ view: order_items {
 
   measure: returned_total_sale_price {
     label: "Returned Total Sale Price"
+    description: "Total value of returned items"
     type: sum
     value_format_name: usd
     sql: ${sale_price} ;;
@@ -371,6 +405,7 @@ view: order_items {
 
   measure: return_rate {
     label: "Return Rate"
+    description: "Percentage of items returned"
     type: number
     value_format_name: percent_2
     sql: 1.0 * ${returned_count} / nullif(${count},0) ;;
@@ -382,6 +417,7 @@ view: order_items {
 
   dimension: days_until_next_order {
     label: "Days Until Next Order"
+    description: "Days until the customer placed their next order"
     type: number
     view_label: "Repeat Purchase Facts"
     sql: TIMESTAMP_DIFF(${created_raw},${repeat_purchase_facts.next_order_raw}, DAY) ;;
@@ -389,6 +425,7 @@ view: order_items {
 
   dimension: repeat_orders_within_30d {
     label: "Repeat Orders within 30 Days"
+    description: "Whether the customer placed another order within 30 days"
     type: yesno
     view_label: "Repeat Purchase Facts"
     sql: ${days_until_next_order} <= 30 ;;
@@ -396,12 +433,14 @@ view: order_items {
 
   dimension: repeat_orders_within_15d{
     label: "Repeat Orders within 15 Days"
+    description: "Whether the customer placed another order within 15 days"
     type: yesno
     sql:  ${days_until_next_order} <= 15;;
   }
 
   measure: count_with_repeat_purchase_within_30d {
     label: "Count with Repeat Purchase within 30 Days"
+    description: "Whether the customer placed another order within 30 days total count"
     type: count_distinct
     sql: ${id} ;;
     view_label: "Repeat Purchase Facts"
@@ -413,7 +452,7 @@ view: order_items {
   }
 
   measure: 30_day_repeat_purchase_rate {
-    description: "The percentage of customers who purchase again within 30 days"
+    description: "The percentage of customers who purchase again within 30 days. Measures buying propensity."
     view_label: "Repeat Purchase Facts"
     type: number
     value_format_name: percent_1
