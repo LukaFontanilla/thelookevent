@@ -1,4 +1,6 @@
-{"Send this to slack channel": "これを Slack チャンネルに送信します",
+{
+ "eCommerce": "eCommerce",
+ "Send this to slack channel": "これを Slack チャンネルに送信します",
  "Zev": "Zev",
  "Slack Demo User": "Slack デモ ユーザー",
  "Customer Support": "カスタマー サポート",

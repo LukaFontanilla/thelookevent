@@ -1,5 +1,5 @@
 connection: "looker-private-demo"
-label: " eCommerce"
+label: "eCommerce"
 include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
 include: "/gen_ai/**/*.view" # include all the views
