@@ -1,4 +1,6 @@
-{"Send this to slack channel": "Envoyer à un canal Slack",
+{
+ "eCommerce": "eCommerce",
+ "Send this to slack channel": "Envoyer à un canal Slack",
  "Zev": "Jean",
  "Slack Demo User": "Utilisateur Slack",
  "Customer Support": "Service Client",
