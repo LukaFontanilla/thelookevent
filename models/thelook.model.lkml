@@ -22,7 +22,7 @@ persist_with: ecommerce_etl_modified
 
 
 explore: order_items {
-  label: "(1) Test Swile"
+  # label: "(1) Test Swile"
   view_name: order_items
 
   join: order_facts {

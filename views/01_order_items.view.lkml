@@ -31,7 +31,7 @@ view: order_items {
 
   measure: count {
     label: "Count"
-    description: "Number of order items"
+    description: "Number of order items - Test Mirakl définition accentuée"
     type: count
     drill_fields: [detail*]
   }
@@ -179,7 +179,6 @@ view: order_items {
     type: time
     timeframes: [date, week, month, raw]
     sql: CAST(${TABLE}.shipped_at AS TIMESTAMP) ;;
-
   }
 
   dimension_group: delivered {
@@ -275,6 +274,9 @@ view: order_items {
 ########## Financial Information ##########
 
   dimension: sale_price {
+    label: "Sale Price"
+    description: "Price the item was sold for - mistake"
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0,\"k\";$0"
     type: number
     sql: ${TABLE}.sale_price;;
   }
@@ -309,7 +311,7 @@ view: order_items {
     description: "Total revenue from order items"
     type: sum
     value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0,\"k\";$0"
-    sql: ${sale_price} ;;
+    sql: -${sale_price} ;;
     drill_fields: [detail*]
   }
 
