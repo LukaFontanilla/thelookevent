@@ -20,12 +20,19 @@ datagroup: ecommerce_etl_modified {
 persist_with: ecommerce_etl_modified
 ############ Base Explores #############
 
+access_grant: can_see_data{
+  allowed_values: ["yes"]
+  user_attribute: can_see_sensitive_data
+}
 
 explore: order_items {
+
+  sql_always_where: ((( order_items.created_at  ) >= ((TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY, 'UTC'), MONTH)), INTERVAL -2 MONTH)))) AND ( order_items.created_at  ) < ((TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP(DATETIME_ADD(DATETIME(TIMESTAMP_TRUNC(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY, 'UTC'), MONTH)), INTERVAL -2 MONTH))), INTERVAL 3 MONTH)))))) ;;
   label: "(1) Orders, Items and Users"
   view_name: order_items
 
   join: order_facts {
+
     type: left_outer
     view_label: "Orders"
     relationship: many_to_one

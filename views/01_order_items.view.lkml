@@ -227,6 +227,14 @@ view: order_items {
     sql: CAST(FLOOR(TIMESTAMP_DIFF(${created_raw}, ${users.created_raw}, DAY)/30) AS INT64) ;;
   }
 
+    dimension: days_since_signup {
+      description: "Months since the order item was sold"
+      label: "days Since Signup"
+      view_label: "Orders"
+      type: number
+      sql: CAST(FLOOR(TIMESTAMP_DIFF(${created_raw}, ${users.created_raw}, DAY)) AS INT64) ;;
+    }
+
 ########## Logistics ##########
 
   dimension: status {
