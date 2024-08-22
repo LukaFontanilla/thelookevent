@@ -279,7 +279,7 @@ view: order_items {
     description: "Price the item was sold for"
     type: number
     value_format_name: usd
-    sql: ${TABLE}.sale_price;;
+    sql: ${TABLE}.sale_price*0.5;;
   }
 
   dimension: gross_margin {
