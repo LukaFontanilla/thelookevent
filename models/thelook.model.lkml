@@ -2,6 +2,7 @@ connection: "looker-private-demo"
 label: "eCommerce"
 include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
+include: "/*.view" # include all the views
 include: "/gen_ai/**/*.view" # include all the views
 include: "/dashboards/*.dashboard.lookml" # include all the views
 
@@ -343,6 +344,9 @@ label: "E-Comm Cohort Analysis Training"
 
 explore: kmeans_model5 {}
 
+explore: mytests_view {
+  view_name: "mytests_view"
+}
 
 explore: ecomm_predict {
   label: "(8) Cohort Analysis"
