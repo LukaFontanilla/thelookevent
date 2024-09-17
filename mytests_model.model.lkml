@@ -7,8 +7,8 @@ include: "/*.view.lkml"
 
 named_value_format: montant_en_euro {
   #value_format: "#,##0€$"
-  value_format: "#,##0€"
-
+  value_format: "#,##0\"€\""
+  strict_value_format: yes
 }
 
 explore: mytests_view {
