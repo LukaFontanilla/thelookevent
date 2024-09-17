@@ -15,7 +15,7 @@ view: mytests_view {
   dimension: montant_custom_value_format_euro {
     type:  number
     sql: ${TABLE}.montant ;;
-    value_format_name: "montant_en_euro"
+    value_format_name: montant_en_euro
   }
 
   measure: count {
