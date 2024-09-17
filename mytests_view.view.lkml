@@ -2,18 +2,20 @@ view: mytests_view {
 
   derived_table: {
     sql: SELECT
-    252282175.99 as montant
+    252282175.85 as montant
     ;;
   }
 
-  dimension: montant_value_format_name {
+  dimension: montant_value_format_name_eur {
+    type: number
     sql: ${TABLE}.montant ;;
-    value_format_name: usd_0
+    value_format_name: eur
   }
 
-  dimension: montant_custom_value_format {
+  dimension: montant_custom_value_format_euro {
+    type:  number
     sql: ${TABLE}.montant ;;
-    value_format: "montant_en_euro"
+    value_format_name: "montant_en_euro"
   }
 
   measure: count {
