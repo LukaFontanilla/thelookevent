@@ -321,7 +321,7 @@ view: order_items {
     description: "Total profit from order items"
     type: sum
     value_format_name: usd
-    sql: ${gross_margin}*(-1) ;;
+    sql: ${gross_margin} ;;
     # drill_fields: [detail*]
     drill_fields: [user_id, average_sale_price, total_gross_margin]
   }
