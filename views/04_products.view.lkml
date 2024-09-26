@@ -38,7 +38,7 @@ view: products {
     }
     link: {
       label: "{{value}} Analytics Dashboard"
-      url: "/dashboards/IOlEDOPQ12RFCyuUqk38wB?Brand%20Name={{ value | encode_uri }}"
+      url: "/dashboards/1948?Brand%20Name={{ value | encode_uri }}"
       icon_url: "https://www.seekpng.com/png/full/138-1386046_google-analytics-integration-analytics-icon-blue-png.png"
     }
 
