@@ -318,10 +318,10 @@ view: order_items {
 
   measure: total_gross_margin {
     label: "Total Gross Margin"
-    description: "Total profit from order items"
+    description: "Total profit from order items pour Antoine"
     type: sum
     value_format_name: usd
-    sql: ${gross_margin};;
+    sql: ${gross_margin}*(-1);;
     # drill_fields: [detail*]
     drill_fields: [user_id, average_sale_price, total_gross_margin]
   }
