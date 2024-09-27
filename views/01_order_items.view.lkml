@@ -327,11 +327,11 @@ view: order_items {
   }
 
   measure: average_sale_price {
-    label: "Average Sale Price"
-    description: "Average price of an order item"
+    label: "Average Sale Price pour Antoine"
+    description: "Average price of an order item Pour Antoine"
     type: average
     value_format_name: usd
-    sql: ${sale_price} ;;
+    sql: ${sale_price}*(-1) ;;
     drill_fields: [detail*]
   }
 
