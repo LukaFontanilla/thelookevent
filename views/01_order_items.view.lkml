@@ -317,7 +317,7 @@ view: order_items {
   }
 
   measure: total_gross_margin {
-    label: "Total Gross Margin"
+    label: "Total Gross Margin pour Hub"
     description: "Total profit from order items"
     type: sum
     value_format_name: usd
