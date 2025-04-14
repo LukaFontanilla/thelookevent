@@ -295,7 +295,7 @@ view: order_items {
     label: "Total Gross Margin"
     type: sum
     value_format_name: usd
-    sql: ${gross_margin} ;;
+    sql: ${gross_margin} * 1.09 ;;
     # drill_fields: [detail*]
     drill_fields: [user_id, average_sale_price, total_gross_margin]
   }
