@@ -9,7 +9,6 @@ view: order_items {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    value_format: "00000"
   }
 
   dimension: inventory_item_id {

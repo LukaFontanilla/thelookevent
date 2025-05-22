@@ -24,11 +24,6 @@ view: users {
     sql: CONCAT(UPPER(SUBSTR(${TABLE}.last_name,1,1)), LOWER(SUBSTR(${TABLE}.last_name,2))) ;;
   }
 
-  dimension: name {
-    label: "Name"
-    sql: concat(${first_name}, ' ', ${last_name}) ;;
-  }
-
   dimension: age {
     label: "Age"
     type: number
