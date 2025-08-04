@@ -4,7 +4,10 @@ view: order_items {
   ########## IDs, Foreign Keys, Counts ###########
 
   dimension: id {
-    label: "ID"
+    view_label: "Level 1"
+    group_label: "Level 2"
+    group_item_label: "Level 3"
+    label: "Level 4"
     description: "Unique identifier for each order item (5 digits)"
     primary_key: yes
     type: number
