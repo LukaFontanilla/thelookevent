@@ -142,12 +142,12 @@ explore: events {
     relationship: many_to_one
   }
 
-  # join: users {
-  #   view_label: "Users"
-  #   type: left_outer
-  #   sql_on: ${sessions.session_user_id} = ${users.id} ;;
-  #   relationship: many_to_one
-  # }
+  join: users {
+    view_label: "Users"
+    type: left_outer
+    sql_on: ${sessions.session_user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
 
   join: user_order_facts {
     type: left_outer
