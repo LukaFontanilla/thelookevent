@@ -21,6 +21,10 @@ persist_with: ecommerce_etl_modified
 ############ Base Explores #############
 
 
+access_grant: pii_grant {
+  allowed_values: ["yes"]
+  user_attribute: [can_see_pii_data]
+}
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
@@ -29,7 +33,8 @@ explore: order_items {
     type: left_outer
     view_label: "Orders"
     relationship: many_to_one
-    sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
+    sql_on: ${order_facts.order_id} = ${order_items.order_id}
+    ;;
   }
 
   join: promo_email {

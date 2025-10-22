@@ -3,6 +3,7 @@ view: users {
   view_label: "Users"
   ## Demographics ##
 
+
   dimension: id {
     label: "ID"
     primary_key: yes
@@ -27,6 +28,7 @@ view: users {
   dimension: name {
     label: "Name"
     sql: concat(${first_name}, ' ', ${last_name}) ;;
+    required_access_grants: [pii_grant]
   }
 
   dimension: age {

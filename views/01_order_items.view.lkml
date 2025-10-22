@@ -243,13 +243,13 @@ view: order_items {
         WHEN ${status} = 'Processing' THEN TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ${created_raw}, DAY)*1.0
         WHEN ${status} IN ('Shipped', 'Complete', 'Returned') THEN TIMESTAMP_DIFF(${shipped_raw}, ${created_raw}, DAY)*1.0
         WHEN ${status} = 'Cancelled' THEN NULL
-      END
+      END + 1
        ;;
   }
 
 
   dimension: shipping_time {
-    label: "Shipping Time"
+    label: "Time to Ship"
     description: "Number of days between the delivery date and shipping date"
     type: number
     sql: TIMESTAMP_DIFF(${delivered_raw}, ${shipped_raw}, DAY)*1.0 ;;
