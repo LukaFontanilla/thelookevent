@@ -312,7 +312,7 @@ view: order_items {
     description: "Total revenue from order items"
     type: sum
     value_format_name: usd
-    sql: ${sale_price}*-1;;
+    sql: ${sale_price}*2;;
     drill_fields: [detail*]
   }
 
