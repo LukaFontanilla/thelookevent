@@ -4,6 +4,7 @@ include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
 include: "/gen_ai/**/*.view" # include all the views
 include: "/dashboards/*.dashboard.lookml" # include all the views
+include: "/aggregate_tables/*.view"
 
 ############ Model Configuration #############
 
@@ -85,7 +86,7 @@ explore: order_items {
     sql_on: ${distribution_centers.id} = ${inventory_items.product_distribution_center_id} ;;
     relationship: many_to_one
   }
-  #roll up table for commonly used queries
+  #roll up table for commonly used queries, see /aggregate_tables/*.view
   # aggregate_table: simple_rollup {
   #   query: {
   #     dimensions: [created_date, products.brand, products.category, products.department]
