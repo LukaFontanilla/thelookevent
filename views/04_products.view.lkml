@@ -14,18 +14,21 @@ view: products {
     label: "Category"
     sql: TRIM(${TABLE}.category) ;;
     drill_fields: [department, brand, item_name]
+    case_sensitive: no
   }
 
   dimension: item_name {
     label: "Item Name"
     sql: TRIM(${TABLE}.name) ;;
     drill_fields: [id]
+    case_sensitive: no
   }
 
   dimension: brand {
     label: "Brand"
     sql: TRIM(${TABLE}.brand) ;;
     drill_fields: [item_name]
+    case_sensitive: no
     link: {
       label: "Website"
       url: "http://www.google.com/search?q={{ value | encode_uri }}+clothes&btnI"
