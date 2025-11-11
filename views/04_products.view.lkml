@@ -186,20 +186,6 @@ view: products {
     sql: CAST(${TABLE}.distribution_center_id AS INT64) ;;
   }
 
-  dimension: brand_category_item {
-    # used for searching the brand, category and item
-    hidden: yes
-    sql: CONCAT(${brand}, " > ", ${category}, " > ", ${item_name}) ;;
-    type: string
-  }
-
-  dimension: brand_category {
-    # used for searching the brand, category and item
-    hidden: yes
-    sql: CONCAT(${brand}, " > ", ${category}) ;;
-    type: string
-  }
-
   ## MEASURES ##
 
   measure: count {
