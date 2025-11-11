@@ -193,6 +193,13 @@ view: products {
     type: string
   }
 
+  dimension: brand_category {
+    # used for searching the brand, category and item
+    hidden: yes
+    sql: CONCAT(${brand}, " > ", ${category}) ;;
+    type: string
+  }
+
   ## MEASURES ##
 
   measure: count {
