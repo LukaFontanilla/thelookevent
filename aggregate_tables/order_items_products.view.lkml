@@ -10,7 +10,8 @@ explore: +order_items {
   }
   join: brand_category_item {
     sql:  ;;
-    sql_where: {% assign items = brand_category_item.filter._parameter_value | split: '..' %}
+    sql_where:
+    {% assign items = brand_category_item.filter._parameter_value | split: '..' %}
     {% assign brand = "" | split: "" %}
     {% assign category = "" | split: "" %}
     {% assign item_name = "" | split: "" %}
@@ -24,22 +25,23 @@ explore: +order_items {
       {% elsif f.size == 3 %}
       {% assign item_name = item_name | concat: item_arr %}
       {% endif %}
-    {% endfor %} (
+    {% endfor %}
+    (
     {% for b in brand %}
-      ${products.brand} = '{{ b }}' {% if forloop.last %}{% else %} OR {% endif %}
-    {% else %} 1=1 {% endfor %} ) AND (
+       ${products.brand} = '{{ b }}' {% if forloop.last %}{% else %} OR {% endif %}
+    {% else %} 1=1 {% endfor %} ) OR (
     {% for c in category %}
       {% assign g = c | split: "__" %}
-        ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' {% if forloop.last %}{% else %} OR {% endif %}
-    {% else %} 1=1 AND {% endfor %} ) AND (
+      ( ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' ){% if forloop.last %}{% else %} OR {% endif %}
+    {% else %} 1=1 AND {% endfor %} ) OR (
     {% for i in item_name %}
       {% assign g = i | split: "__" %}
-        ${products.brand} = '{{ g[0] }}'
-    AND ${products.category} = '{{ g[1] }}'
-    AND ${products.item_name} = '{{ g[2] }}' {% if forloop.last %}{% else %} OR {% endif %}
+      (       ${products.brand} = '{{ g[0] }}'
+          AND ${products.category} = '{{ g[1] }}'
+          AND ${products.item_name} = '{{ g[2] }}'
+      ) {% if forloop.last %}{% else %} OR {% endif %}
     {% else %} 1=1 {% endfor %} )
-
-    ;;
+  ;;
 
     # ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' {% if forloop.last %}{% else %} OR {% endif %}
 
