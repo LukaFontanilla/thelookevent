@@ -51,5 +51,5 @@ explore: +order_items {
 }
 
 view: brand_category_item {
-  parameter: filter { type: unquoted hidden: no}
+  parameter: filter { type: unquoted hidden: yes}
 }
