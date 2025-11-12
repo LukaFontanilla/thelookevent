@@ -12,7 +12,7 @@ explore: +order_items {
     sql:  ;;
     sql_where:
     {% assign counter = 0 %}
-    {% assign items = brand_category_item.filter._parameter_value | split: '..' %}
+    {% assign items = brand_category_item.filter._parameter_value | replace: "$", " " | split: '..' %}
     {% assign brand = "" | split: "" %}
     {% assign category = "" | split: "" %}
     {% assign item_name = "" | split: "" %}
@@ -53,13 +53,6 @@ explore: +order_items {
     {% endfor %}
     {% if counter == 0 %} 1=1 {% endif %}
   ;;
-
-    # ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' {% if forloop.last %}{% else %} OR {% endif %}
-
-
-    # {% for i in item_name %}
-    #     ${products.brand} = '{{ i[0] }}' AND ${products.category} = '{{ i[1] }}' AND ${products.item_name} = '{{ i[2] }}'
-    # {% else %} 1=1 AND {% endfor %}
   }
 }
 
