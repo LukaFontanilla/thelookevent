@@ -11,6 +11,7 @@ explore: +order_items {
   join: brand_category_item {
     sql:  ;;
     sql_where:
+    {% assign counter = 0 %}
     {% assign items = brand_category_item.filter._parameter_value | split: '..' %}
     {% assign brand = "" | split: "" %}
     {% assign category = "" | split: "" %}
@@ -26,21 +27,31 @@ explore: +order_items {
       {% assign item_name = item_name | concat: item_arr %}
       {% endif %}
     {% endfor %}
-    (
     {% for b in brand %}
-       ${products.brand} = '{{ b }}' {% if forloop.last %}{% else %} OR {% endif %}
-    {% else %} 1=1 {% endfor %} ) OR (
+      {% if forloop.first %} ( {% endif %}
+      {% assign counter = counter | plus: 1 %}
+      ( ${products.brand} = '{{ b }}' ) {% if forloop.last %}{% else %} OR {% endif %}
+      {% if forloop.last %} ) {% endif %}
+    {% endfor %}
     {% for c in category %}
+      {% if forloop.first %} {% if counter > 0 %} OR ( {% else %} ( {% endif %} {% endif %}
+      {% assign counter = counter | plus: 1 %}
+      {% if counter > 0 %}{% else %}{% endif %}
       {% assign g = c | split: "__" %}
-      ( ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' ){% if forloop.last %}{% else %} OR {% endif %}
-    {% else %} 1=1 AND {% endfor %} ) OR (
+      ( ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' ) {% if forloop.last %}{% else %} OR {% endif %}
+    {% if forloop.last %} ) {% endif %}
+    {% endfor %}
     {% for i in item_name %}
+      {% if forloop.first %} {% if counter > 0 %} OR ( {% else %} ( {% endif %} {% endif %}
+      {% assign counter = counter | plus: 1 %}
       {% assign g = i | split: "__" %}
       (       ${products.brand} = '{{ g[0] }}'
           AND ${products.category} = '{{ g[1] }}'
           AND ${products.item_name} = '{{ g[2] }}'
-      ) {% if forloop.last %}{% else %} OR {% endif %}
-    {% else %} 1=1 {% endfor %} )
+      )
+    {% if forloop.last %} ) {% endif %}
+    {% endfor %}
+    {% if counter == 0 %} 1=1 {% endif %}
   ;;
 
     # ${products.brand} = '{{ g[0] }}' AND ${products.category} = '{{ g[1] }}' {% if forloop.last %}{% else %} OR {% endif %}
@@ -53,5 +64,5 @@ explore: +order_items {
 }
 
 view: brand_category_item {
-  parameter: filter { type: unquoted hidden: yes}
+  parameter: filter { type: unquoted hidden: no}
 }
