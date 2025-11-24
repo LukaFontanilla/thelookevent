@@ -14,18 +14,21 @@ view: products {
     label: "Category"
     sql: TRIM(${TABLE}.category) ;;
     drill_fields: [department, brand, item_name]
+    case_sensitive: no
   }
 
   dimension: item_name {
     label: "Item Name"
     sql: TRIM(${TABLE}.name) ;;
     drill_fields: [id]
+    case_sensitive: no
   }
 
   dimension: brand {
     label: "Brand"
     sql: TRIM(${TABLE}.brand) ;;
     drill_fields: [item_name]
+    case_sensitive: no
     link: {
       label: "Website"
       url: "http://www.google.com/search?q={{ value | encode_uri }}+clothes&btnI"
@@ -38,7 +41,7 @@ view: products {
     }
     link: {
       label: "{{value}} Analytics Dashboard"
-      url: "/dashboards/IOlEDOPQ12RFCyuUqk38wB?Brand%20Name={{ value | encode_uri }}"
+      url: "/dashboards/1948?Brand%20Name={{ value | encode_uri }}"
       icon_url: "https://www.seekpng.com/png/full/138-1386046_google-analytics-integration-analytics-icon-blue-png.png"
     }
 
