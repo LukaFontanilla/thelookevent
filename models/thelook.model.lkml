@@ -21,15 +21,12 @@ persist_with: ecommerce_etl_modified
 ############ Base Explores #############
 
 
-access_grant: pii_grant {
-  allowed_values: ["yes"]
-  user_attribute: [can_see_pii_data]
-}
+
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
   always_filter: {
-    filters: [created_at: "90 days"]
+    filters: [products.brand: "Calvin Klein"]
   }
 
   join: order_facts {
