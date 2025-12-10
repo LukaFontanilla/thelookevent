@@ -28,6 +28,9 @@ access_grant: pii_grant {
 explore: order_items {
   label: "(1) Orders, Items and Users"
   view_name: order_items
+  always_filter: {
+    filters: [created_at: "90 days"]
+  }
 
   join: order_facts {
     type: left_outer
