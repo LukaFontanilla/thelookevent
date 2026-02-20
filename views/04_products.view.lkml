@@ -26,7 +26,7 @@ view: products {
 
   dimension: brand {
     label: "Brand"
-    description: "Product Brand"
+    description: "Product Brand
     sql: TRIM(${TABLE}.brand) ;;
     drill_fields: [item_name]
     case_sensitive: no
