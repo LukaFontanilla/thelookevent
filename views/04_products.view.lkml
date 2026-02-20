@@ -123,7 +123,7 @@ view: products {
     label: "Distribution Center ID"
     description: "The ID of the distribution center storing this product."
     type: number
-    sql: CAST(${TABLE}.distribution_center_id AS INT64) ;;
+    sql: CAST(${TABLE}.distribution_center_id AS INT64) ;
   }
 
   dimension: item_name {
