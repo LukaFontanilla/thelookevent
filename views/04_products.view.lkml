@@ -24,7 +24,7 @@ view: products {
     case_sensitive: no
   }
 
-  dimension: brand {
+  dimension: brand 
     label: "Brand"
     description: "Product Brand
     sql: TRIM(${TABLE}.brand) ;;
