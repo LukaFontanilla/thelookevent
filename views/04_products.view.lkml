@@ -1,32 +1,20 @@
 view: products {
   sql_table_name: looker-private-demo.ecomm.products ;;
   view_label: "Products"
+
   ### DIMENSIONS ###
 
   dimension: id {
-    label: "ID"
     primary_key: yes
+    label: "ID"
+    description: "Unique identifier for the product."
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension: category {
-    label: "Category"
-    sql: TRIM(${TABLE}.category) ;;
-    drill_fields: [department, brand, item_name]
-    case_sensitive: no
-  }
-
-  dimension: item_name {
-    label: "Item Name"
-    sql: TRIM(${TABLE}.name) ;;
-    drill_fields: [id]
-    case_sensitive: no
-  }
-
-  dimension: brand 
+  dimension: brand {
     label: "Brand"
-    description: "Product Brand
+    description: "Product Brand"
     sql: TRIM(${TABLE}.brand) ;;
     drill_fields: [item_name]
     case_sensitive: no
@@ -117,8 +105,38 @@ view: products {
     }
   }
 
+  dimension: category {
+    label: "Category"
+    description: "The category the product belongs to."
+    sql: TRIM(${TABLE}.category) ;;
+    drill_fields: [department, brand, item_name]
+    case_sensitive: no
+  }
+
+  dimension: department {
+    label: "Department"
+    description: "The department the product belongs to."
+    sql: TRIM(${TABLE}.department) ;;
+  }
+
+  dimension: distribution_center_id {
+    label: "Distribution Center ID"
+    description: "The ID of the distribution center storing this product."
+    type: number
+    sql: CAST(${TABLE}.distribution_center_id AS INT64) ;;
+  }
+
+  dimension: item_name {
+    label: "Item Name"
+    description: "The name of the item."
+    sql: TRIM(${TABLE}.name) ;;
+    drill_fields: [id]
+    case_sensitive: no
+  }
+
   dimension: retail_price {
     label: "Retail Price"
+    description: "The standard retail price of the product."
     type: number
     sql: ${TABLE}.retail_price ;;
     action: {
@@ -171,32 +189,24 @@ view: products {
     }
   }
 
-  dimension: department {
-    label: "Department"
-    sql: TRIM(${TABLE}.department) ;;
-  }
-
   dimension: sku {
     label: "SKU"
+    description: "The Stock Keeping Unit (SKU) identifier."
     sql: ${TABLE}.sku ;;
-  }
-
-  dimension: distribution_center_id {
-    label: "Distribution Center ID"
-    type: number
-    sql: CAST(${TABLE}.distribution_center_id AS INT64) ;;
   }
 
   ## MEASURES ##
 
   measure: count {
     label: "Count"
+    description: "Count of products."
     type: count
     drill_fields: [detail*]
   }
 
   measure: brand_count {
     label: "Brand Count"
+    description: "Count of distinct brands."
     type: count_distinct
     sql: ${brand} ;;
     drill_fields: [brand, detail2*, -brand_count] # show the brand, a bunch of counts (see the set below), don't show the brand count, because it will always be 1
@@ -204,6 +214,7 @@ view: products {
 
   measure: category_count {
     label: "Category Count"
+    description: "Count of distinct categories."
     alias: [category.count]
     type: count_distinct
     sql: ${category} ;;
@@ -212,6 +223,7 @@ view: products {
 
   measure: department_count {
     label: "Department Count"
+    description: "Count of distinct departments."
     alias: [department.count]
     type: count_distinct
     sql: ${department} ;;
@@ -221,6 +233,7 @@ view: products {
   measure: prefered_categories {
     hidden: yes
     label: "Prefered Categories"
+    description: "List of preferred categories."
     type: list
     list_field: category
     #order_by_field: order_items.count
@@ -230,6 +243,7 @@ view: products {
   measure: prefered_brands {
     hidden: yes
     label: "Prefered Brand"
+    description: "List of preferred brands."
     type: list
     list_field: brand
     #order_by_field: count
