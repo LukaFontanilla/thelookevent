@@ -384,3 +384,9 @@ explore: ecomm_predict {
     sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
   }
 }
+
+explore: order_items_user_cohort {
+  label: "Order Items with User Cohorts"
+  description: "Detailed order item data joined with user first-purchase cohort information for retention and CLV analysis."
+}
+
