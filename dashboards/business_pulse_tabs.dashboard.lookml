@@ -1,9 +1,9 @@
 ---
-- dashboard: _business_pulse_and_brand_lookup
+- dashboard: _business_pulse_and_brand_lookup_imported
   title: " Business Pulse and Brand Lookup"
   preferred_viewer: dashboards-next
   description: ''
-  preferred_slug: i7T20htZttzsaRswW4ERSx
+  preferred_slug: ZwBBzlGNOInLweOBvDEIBW
   theme_name: ''
   layout: newspaper
   tabs:
@@ -1011,11 +1011,11 @@
     listen:
       Date: events.event_date
       State: users.state
-    row: 54
+    row: 42
     col: 12
     width: 12
     height: 8
-    tab_name: Business Pulse
+    tab_name: Brand Lookup
   - title: Website Sessions by Hour of Day and User Lifetime Order Tier
     name: Website Sessions by Hour of Day and User Lifetime Order Tier
     model: thelook
@@ -1077,20 +1077,11 @@
     listen:
       Date: events.event_date
       State: users.state
-    row: 49
+    row: 34
     col: 0
     width: 14
     height: 5
-    tab_name: Business Pulse
-  - name: "<span class='fa fa-laptop'> Web Analytics </span>"
-    type: text
-    title_text: "<span class='fa fa-laptop'> Web Analytics </span>"
-    subtitle_text: How are users interacting with our website?
-    row: 33
-    col: 0
-    width: 24
-    height: 2
-    tab_name: Business Pulse
+    tab_name: Brand Lookup
   - title: Total Orders
     name: Total Orders
     model: thelook
@@ -1206,6 +1197,15 @@
     col: 14
     width: 10
     height: 11
+    tab_name: Brand Lookup
+  - name: "<span class='fa fa-laptop'> Web Analytics </span>"
+    type: text
+    title_text: "<span class='fa fa-laptop'> Web Analytics </span>"
+    subtitle_text: How are users interacting with our website?
+    row: 26
+    col: 0
+    width: 24
+    height: 2
     tab_name: Brand Lookup
   - title: Top Product Categories - Cart vs Conversion
     name: Top Product Categories - Cart vs Conversion
