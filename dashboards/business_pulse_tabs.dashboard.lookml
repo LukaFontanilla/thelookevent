@@ -1,5 +1,5 @@
 ---
-- dashboard: business_pulse_tabs
+- dashboard: _business_pulse_and_brand_lookup
   title: " Business Pulse and Brand Lookup"
   preferred_viewer: dashboards-next
   description: ''
