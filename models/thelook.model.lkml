@@ -17,19 +17,44 @@ datagroup: ecommerce_etl_modified {
   max_cache_age: "24 hours"
 }
 
+datagroup: policy_2 {
+  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.ecomm.events` ;;
+  max_cache_age: "24 hours"
+}
+
+datagroup: target_revenue {
+  sql_trigger: SELECT MAX(count)  FROM `looker-private-demo.ecomm.order_items` ;;
+  # max_cache_age: "24 hours"
+}
+
+access_grant: confidentiality_level_2 {
+  user_attribute: ["confidentiality_level"]
+  allowed_values: ["3"]
+}
+
 persist_with: ecommerce_etl_modified
+
 ############ Base Explores #############
 
 
 explore: order_items {
-  label: "(1) Orders, Items and Users"
+  # persist_with: policy_2
+  # required_access_grants: [confidentiality_level_2]
+  label: "(1) TEST - December 24th"
+  description: "This self service layer is to be used for XYZ - January 2025"
   view_name: order_items
+
+  # access_filter: {
+  #   field: country
+  #   user_attribute: user_country
+  # }
+
 
   join: order_facts {
     type: left_outer
-    view_label: "Orders"
+    view_label: "Test Order fact Dec 4th"
     relationship: many_to_one
-    sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
+    sql_on: ${order_items.order_id} = ${order_facts.order_id} ;;
   }
 
   join: promo_email {
@@ -97,11 +122,6 @@ explore: order_items {
   #   }
   # }
 }
-
-
-
-
-
 
 #########  Event Data Explores #########
 

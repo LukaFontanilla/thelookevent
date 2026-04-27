@@ -124,4 +124,27 @@ view: order_items_share_of_wallet {
     type: number
     sql: ${total_sale_price_brand_v2}*1.0 / nullif(${order_items.total_sale_price},0) ;;
   }
+
+
+  measure: brand_share_of_wallet_Vichy {
+    view_label: "Share of Wallet (Vichy)"
+    description: "Vichy's sales over all sales across website"
+    type: number
+    value_format_name: percent_2
+    sql: ${total_sale_price_brand_Vichy}*1.0 / nullif(${order_items.total_sale_price},0) ;;
+  }
+
+  measure: total_sale_price_brand_Vichy {
+    view_label: "Share of Wallet (Vichy)"
+    label: "Total Sales - Vichy"
+    type: sum
+    value_format_name: usd
+    sql: ${order_items.sale_price} ;;
+
+    filters: {
+      field: order_items_share_of_wallet.brand_comparison
+      value: "Vichy"
+    }
+  }
+
 }

@@ -196,6 +196,60 @@ view: order_items {
     sql: ${TABLE}.created_at ;;
   }
 
+    dimension: created_month_stacked {
+      group_label: "Created Date"
+      label: "Month (Stacked)"
+      sql: TIMESTAMP_TRUNC(${TABLE}.created_at, MONTH) ;;
+      # equivalent code for Postgres or Redshift SQL
+      #sql: DATE_TRUNC('month', ${TABLE}.created_at) ;;
+      datatype: date
+      html:
+      {% assign month_num = value | date: "%m" %}
+
+      <div style="text-align: center; line-height: 1.2;">
+      <span style="font-weight: bold; font-size: 14px;">
+      {{ value | date: "%b" }}
+      </span>
+
+      <br>
+
+      {% if month_num == '01' or month_num == '04' or month_num == '07' or month_num == '10' %}
+
+      <span style="font-size: 12px; color: #555;">
+      Q{{ value | date: "%m" | plus: 0 | minus: 1 | divided_by: 3 | floor | plus: 1 }}
+      </span>
+
+      <br>
+
+      <span style="font-size: 12px; color: #555;">
+      {{ value | date: "%Y" }}
+      </span>
+
+      {% else %}
+      <br><br>
+      {% endif %}
+      </div> ;;
+    }
+
+    # html:
+    # <div style="text-align: center; line-height: 1.2;">
+    #   <span style="font-weight: bold; font-size: 14px;">
+    #   {{ value | date: "%b" }}
+    #   </span>
+
+    #   <br>
+
+    #   <span style="font-size: 12px; color: #555;">
+    #   Q{{ value | date: "%m" | plus: 0 | minus: 1 | divided_by: 3 | floor | plus: 1 }}
+    #   </span>
+
+    #   <br>
+
+    #   <span style="font-size: 12px; color: #555;">
+    #   {{ value | date: "%Y" }}
+    #   </span>
+    #   </div> ;;
+
   dimension: reporting_period_ytd_vs_lytd {
     description: "PoP Reporting Field for comparisons"
     group_label: "Order Date"
@@ -279,7 +333,13 @@ view: order_items {
     description: "Price the item was sold for"
     type: number
     value_format_name: usd
-    sql: ${TABLE}.sale_price;;
+    sql: -4*${TABLE}.sale_price;;
+  }
+
+
+  dimension:  custom_key_version02 {
+    type: string
+    sql: CONCAT (${status},${order_id},${user_id}) ;;
   }
 
   dimension: gross_margin {
@@ -292,11 +352,22 @@ view: order_items {
 
   dimension: item_gross_margin_percentage {
     label: "Item Gross Margin Percentage"
-    description: "Gross margin as a percentage of the sale price"
+    description: "Gross margin as a percentage of the sale price. Define "
     type: number
     value_format_name: percent_2
-    sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
+    # sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
+    sql: SAFE_DIVIDE (${gross_margin},${sale_price}) ;;
   }
+
+    dimension: item_high_gross_margin_percentage {
+      label: "Item Gross with High Margin"
+      description: "Gross margin for items defined as having a 'high margin'"
+      type: yesno
+      value_format_name: percent_2
+      synonyms: ["high margin"]
+      # sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
+      sql: CASE WHEN ${item_gross_margin_percentage} > 0.30 THEN true ELSE false END ;;
+    }
 
   dimension: item_gross_margin_percentage_tier {
     label: "Item Gross Margin Percentage Tier"
@@ -444,7 +515,6 @@ view: order_items {
     type: count_distinct
     sql: ${id} ;;
     view_label: "Repeat Purchase Facts"
-
     filters: {
       field: repeat_orders_within_30d
       value: "Yes"
