@@ -333,7 +333,7 @@ view: order_items {
     description: "Price the item was sold for"
     type: number
     value_format_name: usd
-    sql: -4*${TABLE}.sale_price;;
+    sql: ${TABLE}.sale_price;;
   }
 
 
