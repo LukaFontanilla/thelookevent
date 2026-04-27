@@ -366,7 +366,7 @@ view: order_items {
       value_format_name: percent_2
       synonyms: ["high margin"]
       # sql: 1.0 * ${gross_margin}/NULLIF(${sale_price},0) ;;
-      sql: CASE WHEN ${item_gross_margin_percentage} > 0.30 THEN true ELSE false END ;;
+      sql: CASE WHEN ${item_gross_margin_percentage} > 0.54 THEN true ELSE false END ;;
     }
 
   dimension: item_gross_margin_percentage_tier {
