@@ -41,8 +41,8 @@ persist_with: ecommerce_etl_modified
 explore: order_items {
   # persist_with: policy_2
   # required_access_grants: [confidentiality_level_2]
-  label: "(1) TEST - December 24th"
-  description: "This self service layer is to be used for XYZ - January 2025"
+  label: "(1) Orders, Items and Users"
+  # description: "This self service layer is to be used for XYZ - January 2025"
   view_name: order_items
 
   # access_filter: {
@@ -53,7 +53,7 @@ explore: order_items {
 
   join: order_facts {
     type: left_outer
-    view_label: "Test Order fact Dec 4th"
+    #view_label: "Test Order fact Dec 4th"
     relationship: many_to_one
     sql_on: ${order_items.order_id} = ${order_facts.order_id} ;;
   }
