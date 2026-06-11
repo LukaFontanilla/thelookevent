@@ -58,7 +58,7 @@ view: order_items {
     view_label: "Orders"
     description: "Number of orders placed by first-time customers"
     type: count_distinct
-    sql: ${order_id} ;;
+    sql: ${order_id}*2 ;;
     filters: {
       field: order_facts.is_first_purchase
       value: "Yes"
