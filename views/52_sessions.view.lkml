@@ -84,7 +84,7 @@ view: sessions {
   dimension: duration_seconds_tier {
     label: "Duration Tier (sec)"
     type: tier
-    tiers: [1, 2, 5, 10, 30, 60, 120, 300]
+    tiers: [2, 5, 10, 30, 60, 120, 300]
     style: integer
     sql: ${duration} ;;
   }
