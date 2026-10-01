@@ -81,7 +81,7 @@ view: events {
   dimension: viewed_product_id {
     label: "Viewed Product ID"
     type: number
-    sql: CASE WHEN ${event_type} = 'Product' THEN
+    sql: CASE WHEN ${event_type} = 'product' THEN
           CAST(SPLIT(${full_page_url}, '/')[OFFSET(ARRAY_LENGTH(SPLIT(${full_page_url}, '/'))-1)] AS INT64)
       END
        ;;
