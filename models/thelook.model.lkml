@@ -14,7 +14,7 @@ include: "/aggregate_tables/*.view"
 # }
 
 datagroup: ecommerce_etl_modified {
-  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.ecomm.events` ;;
+  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.thelook_ecommerce.events` ;;
   max_cache_age: "24 hours"
 }
 
@@ -389,4 +389,3 @@ explore: order_items_user_cohort {
   label: "Order Items with User Cohorts"
   description: "Detailed order item data joined with user first-purchase cohort information for retention and CLV analysis."
 }
-

@@ -52,8 +52,8 @@ view: ecomm_feature_generation {
                         ,sum(case when inv.product_category="Jumpsuits & Rompers" then 1 else 0 end) AS jumpsuits_and_rompers_qty
                         ,sum(case when inv.product_category="Clothing Sets" then 1 else 0 end) AS clothing_sets_qty
                         ,avg(oi.sale_price) as avg_price_per_order
-                  FROM `looker-private-demo.ecomm.order_items` as oi
-                  JOIN `looker-private-demo.ecomm.inventory_items` as inv ON inv.id = oi.inventory_item_id
+                  FROM `looker-private-demo.thelook_ecommerce.order_items` as oi
+                  JOIN `looker-private-demo.thelook_ecommerce.inventory_items` as inv ON inv.id = oi.inventory_item_id
                   WHERE status = "Complete"
                   GROUP BY 1,2
                 )
@@ -66,7 +66,7 @@ view: ecomm_feature_generation {
             ,sum(case when event_type="Card" then 1 else 0 end) AS add_to_cart
             ,sum(case when event_type="Cancel" then 1 else 0 end) AS cancel_order
             ,sum(case when event_type="Email" then 1 else 0 end) AS email
-            FROM `looker-private-demo.ecomm.events`
+            FROM `looker-private-demo.thelook_ecommerce.events`
             WHERE user_id IS NOT NULL
             GROUP BY 1) as events
       ON product.user_id = events.user_id1)
@@ -95,7 +95,7 @@ view: ecomm_predict {
     sql: SELECT
         * EXCEPT(nearest_centroids_distance)
       FROM
-        ML.PREDICT(MODEL `looker-private-demo.ecomm.kmeans_model5`,
+        ML.PREDICT(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model5`,
         (SELECT * FROM
                     ${ecomm_feature_generation.SQL_TABLE_NAME}))
        ;;

@@ -4,14 +4,14 @@ view: inventory_snapshot {
     sql: with calendar as
       (
       select distinct created_at as snapshot_date
-        from looker-private-demo.ecomm.inventory_items
+        from looker-private-demo.thelook_ecommerce.inventory_items
       )
 
       select
         inventory_items.product_id
         ,calendar.snapshot_date
         ,count(*) as number_in_stock
-      from looker-private-demo.ecomm.inventory_items
+      from looker-private-demo.thelook_ecommerce.inventory_items
          join calendar
           on inventory_items.created_at <= calendar.snapshot_date
           and (date(inventory_items.sold_at) >= calendar.snapshot_date OR inventory_items.sold_at is null)

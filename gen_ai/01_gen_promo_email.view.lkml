@@ -87,7 +87,7 @@ view: promo_email {
         * EXCEPT (ml_generate_text_result)
       FROM
         ML.GENERATE_TEXT(
-          MODEL  `looker-private-demo.ecomm.email_promotion`,
+          MODEL  `looker-private-demo.thelook_ecommerce.email_promotion`,
           (
             SELECT
 

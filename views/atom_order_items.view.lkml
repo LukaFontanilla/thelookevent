@@ -2,7 +2,7 @@
 view: atom_order_items {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
-  sql_table_name: `looker-private-demo.ecomm.atom_order_items`
+  sql_table_name: `looker-private-demo.thelook_ecommerce.atom_order_items`
     ;;
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.

@@ -2,13 +2,13 @@
 view: ecomm_model_eval {
   derived_table: {
     sql: SELECT * FROM (
-            SELECT 4 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model4`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 5 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model5`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 6 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model6`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 7 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model7`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 8 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model8`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 10 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model10`,(SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
-            SELECT 12 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.ecomm.kmeans_model12`,(SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME}))) ;;
+            SELECT 4 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model4`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 5 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model5`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 6 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model6`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 7 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model7`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 8 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model8`, (SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 10 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model10`,(SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME})) UNION ALL
+            SELECT 12 as clusters_num,* FROM ML.EVALUATE(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model12`,(SELECT * except(user_id) FROM ${ecomm_feature_generation.SQL_TABLE_NAME}))) ;;
   }
   dimension: clusters_num {
     type: number
@@ -28,13 +28,13 @@ view: ecomm_model_eval {
 ##################################### Evaluate our Feature Metadata for our model ################################################
 view: ecomm_feature_info {
   derived_table: {
-    sql: SELECT 4 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model4`) UNION ALL
-         SELECT 5 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model5`) UNION ALL
-         SELECT 6 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model6`) UNION ALL
-         SELECT 7 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model7`) UNION ALL
-         SELECT 8 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model8`) UNION ALL
-         SELECT 10 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model10`) UNION ALL
-         SELECT 12 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.ecomm.kmeans_model12`)
+    sql: SELECT 4 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model4`) UNION ALL
+         SELECT 5 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model5`) UNION ALL
+         SELECT 6 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model6`) UNION ALL
+         SELECT 7 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model7`) UNION ALL
+         SELECT 8 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model8`) UNION ALL
+         SELECT 10 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model10`) UNION ALL
+         SELECT 12 as clusters_num, * except(median, category_count) FROM ML.FEATURE_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model12`)
        ;;
   }
 
@@ -93,13 +93,13 @@ view: ecomm_feature_info {
 ################################################ Evaluate Training metatdata for our Models##################################################
 view: ecomm_training_info {
   derived_table: {
-    sql:  SELECT 4 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model4`) UNION ALL
-          SELECT 5 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model5`) UNION ALL
-          SELECT 6 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model6`) UNION ALL
-          SELECT 7 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model7`) UNION ALL
-          SELECT 8 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model8`) UNION ALL
-          SELECT 10 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model10`) UNION ALL
-          SELECT 12 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.ecomm.kmeans_model12`);;
+    sql:  SELECT 4 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model4`) UNION ALL
+          SELECT 5 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model5`) UNION ALL
+          SELECT 6 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model6`) UNION ALL
+          SELECT 7 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model7`) UNION ALL
+          SELECT 8 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model8`) UNION ALL
+          SELECT 10 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model10`) UNION ALL
+          SELECT 12 as clusters_num, * FROM ML.TRAINING_INFO(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model12`);;
   }
 
   dimension: clusters_num {
@@ -162,7 +162,7 @@ view: kmeans_model5 {
     sql: SELECT
       5 as clusters_num
       , *
-      FROM ML.CENTROIDS(MODEL `looker-private-demo.ecomm.kmeans_model5`)
+      FROM ML.CENTROIDS(MODEL `looker-private-demo.thelook_ecommerce.kmeans_model5`)
        ;;
   }
 
