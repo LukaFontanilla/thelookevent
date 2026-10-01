@@ -3,7 +3,7 @@ view: sessions {
     datagroup_trigger: ecommerce_etl_modified
     materialized_view: yes
     sql:
-      -- session rollup table
+      -- session rollup table modified
       SELECT
         session_id
         , CAST(MIN(created_at) AS TIMESTAMP) AS session_start
