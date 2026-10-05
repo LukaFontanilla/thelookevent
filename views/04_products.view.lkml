@@ -1,5 +1,5 @@
 view: products {
-  sql_table_name: looker-private-demo.thelook_ecommerce.products ;;
+  sql_table_name: looker-private-demo.thelook.products ;;
   view_label: "Products"
 
   ### DIMENSIONS ###

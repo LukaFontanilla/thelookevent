@@ -14,7 +14,7 @@ include: "/aggregate_tables/*.view"
 # }
 
 datagroup: ecommerce_etl_modified {
-  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.thelook_ecommerce.events` ;;
+  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.thelook.events` ;;
   max_cache_age: "24 hours"
 }
 

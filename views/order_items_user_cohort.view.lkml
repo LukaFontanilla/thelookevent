@@ -10,7 +10,7 @@ view: order_items_user_cohort {
         SELECT
           user_id,
           MIN(created_at) AS first_purchase_at
-        FROM `looker-private-demo.thelook_ecommerce.order_items`
+        FROM `looker-private-demo.thelook.order_items`
         GROUP BY 1
       )
       SELECT
@@ -27,7 +27,7 @@ view: order_items_user_cohort {
         ufp.first_purchase_at,
         DENSE_RANK() OVER (PARTITION BY oi.user_id ORDER BY oi.created_at) AS user_order_sequence_number,
         DATE_DIFF(DATE(oi.created_at), DATE(LAG(oi.created_at) OVER (PARTITION BY oi.user_id ORDER BY oi.created_at)), DAY) AS days_since_previous_order
-      FROM `looker-private-demo.thelook_ecommerce.order_items` oi
+      FROM `looker-private-demo.thelook.order_items` oi
       JOIN user_first_purchase ufp ON oi.user_id = ufp.user_id
       WHERE {% condition time_range %} oi.created_at {% endcondition %}
     ;;

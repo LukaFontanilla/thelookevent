@@ -3,7 +3,7 @@ view: trailing_sales_snapshot {
     datagroup_trigger: ecommerce_etl_modified
     sql: with calendar as
       (select distinct created_at as snapshot_date
-      from looker-private-demo.thelook_ecommerce.inventory_items
+      from looker-private-demo.thelook.inventory_items
       -- where dateadd('day',90,created_at)>=current_date
       )
 
@@ -11,8 +11,8 @@ view: trailing_sales_snapshot {
         inventory_items.product_id
         ,date(order_items.created_at) as snapshot_date
         ,count(*) as trailing_28d_sales
-      from looker-private-demo.thelook_ecommerce.order_items
-      join looker-private-demo.thelook_ecommerce.inventory_items
+      from looker-private-demo.thelook.order_items
+      join looker-private-demo.thelook.inventory_items
         on order_items.inventory_item_id = inventory_items.id
       join calendar
         on date(order_items.created_at) <= date_add(calendar.snapshot_date, interval 28 day)

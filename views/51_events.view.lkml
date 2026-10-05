@@ -1,5 +1,5 @@
 view: events {
-  sql_table_name: looker-private-demo.thelook_ecommerce.events ;;
+  sql_table_name: looker-private-demo.thelook.events ;;
 
   dimension: event_id {
     label: "Event ID"
@@ -81,7 +81,7 @@ view: events {
   dimension: viewed_product_id {
     label: "Viewed Product ID"
     type: number
-    sql: CASE WHEN ${event_type} = 'product' THEN
+    sql: CASE WHEN ${event_type} = 'Product' THEN
           CAST(SPLIT(${full_page_url}, '/')[OFFSET(ARRAY_LENGTH(SPLIT(${full_page_url}, '/'))-1)] AS INT64)
       END
        ;;

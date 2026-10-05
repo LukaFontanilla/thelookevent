@@ -1,5 +1,5 @@
 view: discounts {
-  sql_table_name: looker-private-demo.thelook_ecommerce.discounts;;
+  sql_table_name: looker-private-demo.thelook.discounts;;
 
   measure: count {
     type: count

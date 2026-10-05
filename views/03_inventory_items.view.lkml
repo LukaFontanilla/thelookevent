@@ -1,5 +1,5 @@
 view: inventory_items {
-  sql_table_name: looker-private-demo.thelook_ecommerce.inventory_items ;;
+  sql_table_name: looker-private-demo.thelook.inventory_items ;;
   view_label: "Inventory Items"
   ## DIMENSIONS ##
 
