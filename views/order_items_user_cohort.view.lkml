@@ -35,7 +35,7 @@ view: order_items_user_cohort {
 
   dimension: order_item_id {
     primary_key: yes
-    type: float
+    type: number
     description: "Unique identifier for the order item."
     sql: ${TABLE}.order_item_id ;;
   }
