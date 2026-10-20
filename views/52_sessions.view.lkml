@@ -3,7 +3,7 @@ view: sessions {
     datagroup_trigger: ecommerce_etl_modified
     materialized_view: yes
     sql:
-      -- session rollup table
+      -- session rollup table modified
       SELECT
         session_id
         , CAST(MIN(created_at) AS TIMESTAMP) AS session_start
@@ -16,7 +16,7 @@ view: sessions {
         , CAST(MAX(user_id) AS INT64)  AS session_user_id
         , MIN(id) AS landing_event_id
         , MAX(id) AS bounce_event_id
-      FROM looker-private-demo.ecomm.events
+      FROM looker-private-demo.thelook.events
       GROUP BY session_id
        ;;
   }
